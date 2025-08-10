@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog Home</title>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-gray-100 via-white to-gray-100 min-h-screen text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/" class="text-2xl font-extrabold text-gray-900 tracking-tight">MyBlog</a>
+      <form action="/search" method="GET" class="flex gap-2">
+        <input type="text" name="q" placeholder="Search..."
+          class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-blue-500 transition">
+        <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+          Search
+        </button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Main Layout -->
+  <div class="max-w-7xl mx-auto px-4 mt-10 grid grid-cols-12 gap-6 ">
+
+    <!-- Left Sidebar -->
+        <aside class="col-span-3 space-y-6 sticky top-20 self-start">
+        <div class="bg-white rounded-xl shadow-sm p-5">
+      <h3 class="font-bold text-lg mb-3">Trending Posts</h3>
+      <ul class="space-y-2 text-sm text-blue-600">
+        <% trending.forEach(post => { %>
+          <li>
+            <a href="/blog/<%= post.slug %>"><%= post.title %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    
+      <div class="bg-white rounded-xl shadow-sm p-5">
+  <h3 class="font-bold text-lg mb-3">Categories</h3>
+  <ul class="space-y-2 text-sm text-gray-700  font-bold">
+    <% categories.forEach(cat => { %>
+      <li>
+        <a href="/category/<%= cat %>" class="hover:text-blue-600">
+          <%= cat %>
+        </a>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+
+    </aside>
+
+    <!-- Blog Content -->
+    <main class="col-span-6 space-y-10 ">
+      <% blogs.forEach(blog => { %>
+        <article class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-8 space-y-4">
+          <h2 class="text-2xl font-semibold leading-tight">
+            <a href="/blog/<%= blog.slug %>" class="hover:text-blue-600 transition">
+              <%= blog.title %>
+            </a>
+          </h2>
+          <p class="text-gray-500 text-sm">
+            By <%= blog.author %> • <%= blog.createdAt.toDateString() %>
+          </p>
+          <h3 class="text-lg font-medium text-gray-500"><%= blog.subtitle %></h3>
+          <a href="/blog/<%= blog.slug %>" 
+            class="inline-block mt-2 text-blue-600 font-medium hover:underline">
+            Read More →
+          </a>
+        </article>
+      <% }) %>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="col-span-3 space-y-6 sticky top-20 self-start">
+      <div class="bg-white rounded-xl shadow-sm p-5">
+        <h3 class="font-bold text-lg mb-3">Subscribe</h3>
+        <form>
+          <input type="email" placeholder="Your email"
+            class="w-full border border-gray-300 rounded px-3 py-2 mb-3 focus:outline-none focus:border-blue-500">
+          <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Subscribe</button>
+        </form>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm p-5">
+        <h3 class="font-bold text-lg mb-3">Follow Us</h3>
+        <div class="flex gap-3 text-gray-500">
+          <a href="#">🐦</a>
+          <a href="#">📘</a>
+          <a href="#">📸</a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+</body>
+</html>
